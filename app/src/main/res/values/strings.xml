@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Lista de Compras</string>
+    <string name="titulo">Lista de Compras</string>
+    <string name="primeiroBotao">Nova Lista</string>
+    <string name="segundoBotao"> Listas Anteriores </string>
+    <string name="terceiroBotao">Gestão de Dados</string>
+    <string name="menu_carrinho">Carrinho</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_edicao_lista2">EdicaoListaActivity2</string>
+    <string name="novoItem">Novo Item</string>
+</resources>

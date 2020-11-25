@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Shopping List</string>
+    <string name="primeiroBotao">New List</string>
+    <string name="segundoBotao">Previous Lists</string>
+    <string name="terceiroBotao">Data Management</string>
+    <string name="titulo">Shopping List</string>
+    <string name="menu_carrinho">Shopping Cart</string>
+</resources>
