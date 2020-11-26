@@ -12,11 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:background="#dd0b38"
+        android:background="@color/colorAccent"
         android:padding="16dp"
         android:text="@string/titulo"
         android:textAlignment="center"
-        android:textColor="@color/colorPrimary"
+        android:textColor="#ffffff"
         android:textSize="26dp"
         android:textStyle="bold"
         android:typeface="monospace" />
