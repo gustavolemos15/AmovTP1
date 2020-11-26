@@ -14,7 +14,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var teste = 0
+        var teste = 3
     }
 
     fun onNovaLista(view: View) {
