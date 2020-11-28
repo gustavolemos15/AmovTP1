@@ -6,4 +6,16 @@
     <string name="terceiroBotao">Data Management</string>
     <string name="titulo">Shopping List</string>
     <string name="menu_carrinho">Shopping Cart</string>
+    <string name="novoItem">New Item</string>
+    <string name="designacao">Designation</string>
+    <string name="quantidade">Quantity</string>
+    <string name="nomeItem">Item\'s name</string>
+    <string name="indiqueTitulo">Specify the title</string>
+    <string name="indiqueQuantidade">Specify the quantity</string>
+    <string name="marca">Brand</string>
+    <string name="indiqueMarca">Specify the brand</string>
+    <string name="indiqueCategoria">Specify category</string>
+    <string name="categoria">Category</string>
+    <string name="unidades">Units</string>
+    <string name="foto">Photo</string>
 </resources>

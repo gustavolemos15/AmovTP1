@@ -1,5 +1,6 @@
-    package pt.isec.a2014009081.listadecompras
+package pt.isec.a2014009081.listadecompras
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -14,12 +15,6 @@ class EdicaoListaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edicao_lista)
 
-        val fbNovoItem: View = findViewById(R.id.fab)
-        fbNovoItem.setOnClickListener { view ->
-            Snackbar.make(view, "Pop-up para adicionar artigo", Snackbar.LENGTH_LONG)
-                .setAction("Action", null)
-                .show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -34,5 +29,11 @@ class EdicaoListaActivity : AppCompatActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
         return true
+    }
+
+    fun onNovoItem(view: View) {
+        val intent = Intent(this,NovoItemActivity::class.java)
+        startActivity(intent)
+        //Snackbar.make(view, "Pop-up ou atividade para adicionar artigo", Snackbar.LENGTH_LONG).show()
     }
 }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Estes valores terão de ser acedidos atraves dos dados guardados -->
+<!-- Pelo que este ficheiro vai deixar de ser necessário -->
+<!-- VER: https://developer.android.com/guide/topics/ui/controls/spinner -->
+<resources>
+    <string-array name="unidades_array">
+        <item>Unidades</item>
+        <item>KG</item>
+        <item>L</item>
+    </string-array>
+</resources>
