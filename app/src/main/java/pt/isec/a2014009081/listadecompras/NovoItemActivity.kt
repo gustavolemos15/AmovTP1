@@ -3,6 +3,7 @@ package pt.isec.a2014009081.listadecompras
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -60,10 +61,10 @@ class NovoItemActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //este when é só para o caso de adicionarmos mais opções ao menu, se for só uma retirar o when
+        //este when usa-se quando se tem mais que uma opção
         when (item.itemId) {
-            R.id.menufoto -> Toast.makeText(this,"Tirar este botao deste menu", Toast.LENGTH_SHORT).show()
-            R.id.menuUnidade -> Toast.makeText(this,"Ver como fazer. Talvez DialogBox?", Toast.LENGTH_SHORT).show()
+            R.id.menuCategoria -> Toast.makeText(this,"Fazer DialogBox para introduzir nova categoria", Toast.LENGTH_SHORT).show()
+            R.id.menuUnidade -> Toast.makeText(this,"Fazer DialogBox para introduzir nova unidade", Toast.LENGTH_SHORT).show()
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -80,7 +81,7 @@ class NovoItemActivity : AppCompatActivity() {
         dlg.show()
     }
 
-    fun acederCamara() {
+    private fun acederCamara() {
 
         //intent para lançar a app da camara
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -93,7 +94,7 @@ class NovoItemActivity : AppCompatActivity() {
 
     }
 
-    fun acederGaleria() {
+    private fun acederGaleria() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT

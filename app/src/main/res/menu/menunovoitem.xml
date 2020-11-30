@@ -4,7 +4,7 @@
     <item android:id="@+id/menuUnidade"
         android:title="@string/unidades"
         app:showAsAction="always"/>
-    <item android:id="@+id/menufoto"
-        android:title="@string/foto"
+    <item android:id="@+id/menuCategoria"
+        android:title="@string/categoria"
         app:showAsAction="always"/>
 </menu>

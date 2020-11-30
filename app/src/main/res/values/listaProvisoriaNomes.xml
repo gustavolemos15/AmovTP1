@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Esta lista serve apenas para ter coisas para mostrar -->
+<!-- Assim que tenhamos as classes isto é para apagar -->
+<resources>
+    <string-array name="nomeItems_array">
+        <item>Arroz</item>
+        <item>Massa</item>
+        <item>Batatas</item>
+        <item>Esparguete</item>
+        <item>Carne</item>
+        <item>Peixe</item>
+        <item>Cereais</item>
+        <item>Pão</item>
+        <item>Açucar</item>
+        <item>Farinha</item>
+        <item>Sal</item>
+        <item>Pimenta</item>
+        <item>Oregãos</item>
+        <item>Tomates</item>
+    </string-array>
+</resources>

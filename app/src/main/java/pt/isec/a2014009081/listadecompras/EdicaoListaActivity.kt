@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_edicao_lista.*
 
 class EdicaoListaActivity : AppCompatActivity() {
 
@@ -15,6 +17,15 @@ class EdicaoListaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edicao_lista)
 
+        val nomes = resources.getStringArray(R.array.nomeItems_array)
+        val qtds = resources.getStringArray(R.array.qtdItems_array)
+
+        val adapter = ArrayAdapter<String>(this, R.layout.edicao_lista_item, R.id.tvTituloItem, nomes)
+        //adapter = ArrayAdapter<String>(this, R.layout.edicao_lista_item, R.id.tvTituloItem, nomes)
+
+        lvEdicaoLista.adapter = adapter
+
+        lvEdicaoLista
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

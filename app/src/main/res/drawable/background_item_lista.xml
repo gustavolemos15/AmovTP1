@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Este drawble está a ser utilizado nos itens da edicao lista -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-
     <corners android:radius="12dp"/>
     <solid android:color="@android:color/white"/>
 </shape>

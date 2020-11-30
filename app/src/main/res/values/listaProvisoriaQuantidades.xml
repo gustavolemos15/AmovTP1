@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Esta lista serve apenas para ter coisas para mostrar -->
+<!-- Assim que tenhamos as classes isto é para apagar -->
+<resources>
+    <string-array name="qtdItems_array">
+        <item>2 Unidades</item>
+        <item>2 Unidades</item>
+        <item>1,5 KG</item>
+        <item>1 Unidade</item>
+        <item>1 Kg</item>
+        <item>200 g</item>
+        <item>1 Unidade</item>
+        <item>6 Unidades</item>
+        <item>500 g</item>
+        <item>500 g</item>
+        <item>500 g</item>
+        <item>2 Unidades</item>
+        <item>2 Unidades</item>
+        <item>200 g</item>
+    </string-array>
+</resources>
