@@ -36,14 +36,14 @@
             android:textSize="20sp"
             android:onClick="onNovaLista"/>
         <Button
+            android:id="@+id/listasAnteriores"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/segundoBotao"
             android:padding="20dp"
-            android:textSize="20sp"
-            android:onClick="onListasAnteriores"/>
+            android:textSize="20sp" />
         <Button
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
