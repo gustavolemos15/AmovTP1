@@ -12,6 +12,8 @@ class Principal : Serializable{
     init {
         listas.add(Lista("Lista 1"))
         listas.add(Lista("Lista 2"))
+        listas.add(Lista("Lista 3"))
+        listas.add(Lista("Lista 4"))
         // inicializar unidades e categorias
         // ler ficheiros
     }
