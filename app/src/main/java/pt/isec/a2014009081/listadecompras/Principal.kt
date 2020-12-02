@@ -10,6 +10,8 @@ class Principal : Serializable{
     var unidades : ArrayList<String> = ArrayList()
 
     init {
+        listas.add(Lista("Lista 1"))
+        listas.add(Lista("Lista 2"))
         // inicializar unidades e categorias
         // ler ficheiros
     }
