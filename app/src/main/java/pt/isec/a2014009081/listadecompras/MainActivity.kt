@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
 
 // Activity em vez de AppCompatActivity para tirar a titlebar
@@ -25,8 +28,8 @@ class MainActivity : Activity() {
     }
 
     fun onNovaLista(view: View) {
-        val intent = Intent(this,EdicaoListaActivity::class.java)
-        startActivity(intent)
+        editTextDialog()
+        //passagem de atividade passou para o editTextDialog no positiveButton
     }
 
     fun onListasAnteriores(view: View, principal : Principal) {
@@ -39,6 +42,32 @@ class MainActivity : Activity() {
     fun onGestaoDados(view: View) {
         val intent = Intent(this,GestaoDadosActivity::class.java)
         startActivity(intent)
+    }
+
+    private fun editTextDialog() {
+        val dlgBuilder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dlgLayout = inflater.inflate(R.layout.edit_text_dialog, null)
+        val et = dlgLayout.findViewById<EditText>(R.id.etDialog)
+
+        with(dlgBuilder) {
+            setTitle(resources.getString(R.string.primeiroBotao))
+            setPositiveButton(R.string.adicionar) {dialog, which ->
+                // consegues a string introduzida com "et.text.toString()" PS: Podes apagar este comentário
+                Toast.makeText(
+                    this@MainActivity,
+                    et.text.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                //Passagem de atividade apenas após inserir o titulo
+                val intent = Intent(this@MainActivity,EdicaoListaActivity::class.java)
+                startActivity(intent)
+            }
+            setView(dlgLayout)
+            setCancelable(true)
+            show()
+        }
     }
 
 }

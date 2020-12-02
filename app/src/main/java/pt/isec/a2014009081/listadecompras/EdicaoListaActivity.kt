@@ -25,7 +25,6 @@ class EdicaoListaActivity : AppCompatActivity() {
 
         lvEdicaoLista.adapter = adapter
 
-        lvEdicaoLista
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

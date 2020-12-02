@@ -9,13 +9,16 @@
     <string name="designacao">Designação</string>
     <string name="quantidade">Quantidade</string>
     <string name="nomeItem">Nome do item</string>
-    <string name="indiqueTitulo">Indique o título</string>
-    <string name="indiqueQuantidade">Indique a quantidade</string>
+    <string name="indiqueTitulo">Designação</string>
+    <string name="indiqueQuantidade">Quantidade</string>
     <string name="marca">Marca</string>
-    <string name="indiqueMarca">Indique a marca</string>
-    <string name="indiqueCategoria">Indique a categoria</string>
+    <string name="indiqueMarca">Marca</string>
+    <string name="indiqueCategoria">Categoria</string>
     <string name="categoria">Categoria</string>
     <string name="foto">Foto</string>
     <string name="unidades">Unidades</string>
     <string name="categorias">Categorias</string>
+    <string name="dlgUniCatTitle">Nova %1$s</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="notas">Notas</string>
 </resources>

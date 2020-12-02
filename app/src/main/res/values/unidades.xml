@@ -4,8 +4,9 @@
 <!-- VER: https://developer.android.com/guide/topics/ui/controls/spinner -->
 <resources>
     <string-array name="unidades_array">
-        <item>Unidades</item>
+        <item>@string/unidades</item>
         <item>KG</item>
         <item>L</item>
+
     </string-array>
 </resources>

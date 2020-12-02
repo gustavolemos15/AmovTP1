@@ -1,29 +1,39 @@
 package pt.isec.a2014009081.listadecompras
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_novo_item.*
+import kotlinx.android.synthetic.main.edit_text_dialog.*
+import java.util.*
 
 private const val CODIGO_CAMERA = 40
 private const val CODIGO_GALERIA = 41
 
 class NovoItemActivity : AppCompatActivity() {
+    lateinit var prod : Produto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_novo_item)
+
+        val prod :Produto= Produto("arroz",2,"maaarca","Catego")
+
+        etDesignacao.hint = prod.nome
+        etMarca.hint = prod.marca
+        etQuantidade.hint = prod.quantidade.toString()
+        //spinnerCategoria.setSelection(adapterCategorias.getPosition("Alimentação"))
 
         // Se calhar devemos meter isto numa função para tirar do main
 
@@ -33,7 +43,7 @@ class NovoItemActivity : AppCompatActivity() {
             this,
             R.array.unidades_array,
             android.R.layout.simple_spinner_item
-        ).also {adapter ->
+        ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -45,7 +55,7 @@ class NovoItemActivity : AppCompatActivity() {
             this,
             R.array.categorias_array,
             android.R.layout.simple_spinner_item
-        ).also {adapter ->
+        ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -53,6 +63,54 @@ class NovoItemActivity : AppCompatActivity() {
         }
         //! Se calhar devemos meter isto numa função para tirar do main
 
+        //Bloco de codigo de Teste - Reagir a opções selecionadas no spinner
+        spnUni.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                val selectedItem = parent!!.getItemAtPosition(position).toString()
+                if (selectedItem.equals("Unidades")) {
+                    Toast.makeText(
+                        this@NovoItemActivity,
+                        "Fazer DialogBox para introduzir nova categoria",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun editTextDialog(tipo: String) {
+        val dlgBuilder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dlgLayout = inflater.inflate(R.layout.edit_text_dialog, null)
+        val et = dlgLayout.findViewById<EditText>(R.id.etDialog)
+
+        val title = java.lang.String.format(resources.getString(R.string.dlgUniCatTitle),tipo)
+
+        with(dlgBuilder) {
+            setTitle(title)
+            setPositiveButton(R.string.adicionar) {dialog, which ->
+                // fazer verificação do tipo para saber se foi categoria ou unidade
+                // fazer a  verficação também em ingles
+                Toast.makeText(
+                    this@NovoItemActivity,
+                    et.text.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            setView(dlgLayout)
+            setCancelable(true)
+            show()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -63,8 +121,8 @@ class NovoItemActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //este when usa-se quando se tem mais que uma opção
         when (item.itemId) {
-            R.id.menuCategoria -> Toast.makeText(this,"Fazer DialogBox para introduzir nova categoria", Toast.LENGTH_SHORT).show()
-            R.id.menuUnidade -> Toast.makeText(this,"Fazer DialogBox para introduzir nova unidade", Toast.LENGTH_SHORT).show()
+            R.id.menuCategoria -> editTextDialog(resources.getString(R.string.categoria))
+            R.id.menuUnidade -> editTextDialog(resources.getString(R.string.unidades))
             else -> return super.onOptionsItemSelected(item)
         }
         return true

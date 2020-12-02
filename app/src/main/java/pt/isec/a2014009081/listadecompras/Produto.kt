@@ -3,11 +3,11 @@ package pt.isec.a2014009081.listadecompras
 import java.io.Serializable
 
 class Produto(Nome : String, Quantidade: Int, Marca: String, Categoria: String) : Serializable {
-    val nome  = Nome
+    var nome  = Nome
     var quantidade = Quantidade
-    val marca = Marca
-    val categoria = Categoria
+    var marca = Marca
+    var categoria = Categoria
 
-    val notas : ArrayList<String> = ArrayList()
+    //var notas : ArrayList<String> = ArrayList()
 
 }

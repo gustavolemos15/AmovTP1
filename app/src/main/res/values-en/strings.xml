@@ -10,13 +10,16 @@
     <string name="designacao">Designation</string>
     <string name="quantidade">Quantity</string>
     <string name="nomeItem">Item\'s name</string>
-    <string name="indiqueTitulo">Specify the title</string>
-    <string name="indiqueQuantidade">Specify the quantity</string>
+    <string name="indiqueTitulo">Name</string>
+    <string name="indiqueQuantidade">Quantity</string>
     <string name="marca">Brand</string>
-    <string name="indiqueMarca">Specify the brand</string>
-    <string name="indiqueCategoria">Specify category</string>
+    <string name="indiqueMarca">Brand</string>
+    <string name="indiqueCategoria">Category</string>
     <string name="categoria">Category</string>
     <string name="unidades">Units</string>
     <string name="foto">Photo</string>
+    <string name="dlgUniCatTitle">New %1$s</string>
+    <string name="adicionar">Add</string>
     <string name="categorias">Categories</string>
+    <string name="notas">Notas</string>
 </resources>
