@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GestaoDadosActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/appBarLayout">
+
+
+       <com.google.android.material.tabs.TabLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:tabGravity="fill"
+           app:tabMode="fixed"
+           android:id="@+id/tabs"
+           app:tabTextAppearance="@style/CustomTabStyle"
+           app:tabBackground="@color/colorPrimaryDark"
+           app:tabInlineLabel="true"
+           app:tabTextColor="@android:color/white"
+           >
+       </com.google.android.material.tabs.TabLayout>
+<androidx.viewpager.widget.ViewPager
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/viewPager"
+    android:layout_below="@+id/appBarLayout"
+    >
+
+</androidx.viewpager.widget.ViewPager>
+
+
+
+
+
+   </com.google.android.material.appbar.AppBarLayout>
+</RelativeLayout>
