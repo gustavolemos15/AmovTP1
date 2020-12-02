@@ -132,6 +132,12 @@
             android:src="@android:drawable/ic_menu_camera"
             android:onClick="onDialogFoto"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicionar"
+            android:onClick="onAdicionar"/>
+
     </LinearLayout>
 
 </LinearLayout>

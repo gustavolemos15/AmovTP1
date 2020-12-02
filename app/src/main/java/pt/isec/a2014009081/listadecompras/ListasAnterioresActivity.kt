@@ -37,6 +37,7 @@ class ListasAnterioresActivity : AppCompatActivity() {
                 val intent = Intent(this,EdicaoListaActivity::class.java)
                 //enviar objeto para a atividade
                 intent.putExtra("PRINCIPAL", principal)
+                intent.putExtra("POSITION", position)
                 startActivity(intent)
               }
         }
