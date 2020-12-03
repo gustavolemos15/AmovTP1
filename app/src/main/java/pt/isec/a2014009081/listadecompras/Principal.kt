@@ -16,7 +16,9 @@ class Principal : Serializable{
         listas.add(Lista("Lista 4"))
         var p1 = Produto("Batatas", 3, "Pingo Doce", "Legumes")
         listas[0].lista.add(p1)
-        produtos.add(p1)
+        var p2 = Produto("Cebolas", 4, "Pingo Doce", "Legumes")
+        listas[0].lista.add(p2)
+        produtos.add(p2)
         // inicializar unidades e categorias
         // ler ficheiros
     }

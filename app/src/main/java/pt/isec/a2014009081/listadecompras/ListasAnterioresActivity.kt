@@ -34,11 +34,11 @@ class ListasAnterioresActivity : AppCompatActivity() {
                 // 1
                 val selectedLista = principal.listas[position]
 
-                val intent = Intent(this,EdicaoListaActivity::class.java)
-                //enviar objeto para a atividade
-                intent.putExtra("PRINCIPAL", principal)
-                intent.putExtra("POSITION", position)
-                startActivity(intent)
+                  val intent = Intent(this,EdicaoListaActivity::class.java)
+                  //enviar objeto para a atividade
+                  intent.putExtra("PRINCIPAL", principal)
+                  intent.putExtra("IDLISTA", position)
+                  startActivity(intent)
               }
         }
     }
