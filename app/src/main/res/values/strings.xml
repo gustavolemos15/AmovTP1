@@ -21,4 +21,6 @@
     <string name="dlgUniCatTitle">Nova %1$s</string>
     <string name="adicionar">Adicionar</string>
     <string name="notas">Notas</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

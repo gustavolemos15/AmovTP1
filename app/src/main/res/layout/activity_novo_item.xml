@@ -10,51 +10,54 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingTop="16dp">
+        android:paddingTop="16dp"
+        tools:layout_editor_absoluteY="16dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp" >
+            android:paddingVertical="8dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/etDesignacao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="16dp"
-                    android:paddingHorizontal="16dp"
                     android:hint="@string/indiqueTitulo"
-                    android:textSize="20sp"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="16dp"
+                    android:textSize="20sp" />
 
                 <EditText
                     android:id="@+id/etMarca"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingVertical="16dp"
-                    android:paddingHorizontal="16dp"
                     android:hint="@string/indiqueMarca"
-                    android:textSize="20sp"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="16dp"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/imagemItem"
-                android:layout_weight="1"
                 android:layout_width="300dp"
                 android:layout_height="match_parent"
-                android:src="@android:drawable/ic_menu_camera"
-                android:onClick="onDialogFoto"/>
+                android:layout_weight="1"
+                android:onClick="onDialogFoto"
+                android:src="@android:drawable/ic_menu_camera" />
 
         </LinearLayout>
 
@@ -69,36 +72,35 @@
                 android:id="@+id/etQuantidade"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:hint="@string/indiqueQuantidade"
-                android:textSize="20sp"
                 android:layout_weight="1"
-                android:maxLines="1" />
+                android:hint="@string/indiqueQuantidade"
+                android:maxLines="1"
+                android:paddingHorizontal="16dp"
+                android:textSize="20sp" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinnerUnidades"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:orientation="horizontal">
+            android:paddingVertical="8dp">
 
             <TextView
                 android:id="@+id/tvCategoria"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/categoria"
                 android:paddingRight="8dp"
-                android:textSize="26sp"
-                android:textColor="#000000">
-            </TextView>
+                android:text="@string/categoria"
+                android:textColor="#000000"
+                android:textSize="26sp"></TextView>
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinnerCategoria"
@@ -110,29 +112,61 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="8dp"
-            android:orientation="vertical">
+            android:paddingVertical="8dp">
 
             <TextView
                 android:id="@+id/tvNotas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/notas"
                 android:paddingRight="8dp"
-                android:textSize="26sp"
-                android:textColor="#000000"> </TextView>
+                android:text="@string/notas"
+                android:textColor="#000000"
+                android:textSize="26sp"></TextView>
 
             <EditText
                 android:id="@+id/etNotas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:textSize="20sp"
                 android:layout_weight="1"
-                android:maxLines="5" />
+                android:maxLines="5"
+                android:paddingHorizontal="16dp"
+                android:textSize="20sp" />
 
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnGuardarItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fbshape"
+        android:onClick="onGuardarNovoItem"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="@string/guardar"
+        android:textColor="@android:color/white"
+        android:layout_marginLeft="150dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnCancelarItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fbshape"
+        android:onClick="onCancelarNovoItem"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:text="@string/cancelar"
+        android:textColor="@android:color/white"
+        android:layout_marginRight="150dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 

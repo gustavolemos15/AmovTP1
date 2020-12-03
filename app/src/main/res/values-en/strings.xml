@@ -22,4 +22,6 @@
     <string name="adicionar">Add</string>
     <string name="categorias">Categories</string>
     <string name="notas">Notas</string>
+    <string name="guardar">Guardar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>

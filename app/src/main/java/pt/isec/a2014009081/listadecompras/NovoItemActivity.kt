@@ -99,6 +99,7 @@ class NovoItemActivity : AppCompatActivity() {
         with(dlgBuilder) {
             setTitle(title)
             setPositiveButton(R.string.adicionar) {dialog, which ->
+                // verificar se está vazia, se sim toast a dizer que nada foi inserido
                 // fazer verificação do tipo para saber se foi categoria ou unidade
                 // fazer a  verficação também em ingles
                 Toast.makeText(
@@ -172,6 +173,24 @@ class NovoItemActivity : AppCompatActivity() {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
+
+    fun onGuardarNovoItem(view: View) {
+        Toast.makeText(
+            this@NovoItemActivity,
+            "Item Guardado",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    fun onCancelarNovoItem(view: View) {
+        Toast.makeText(
+            this@NovoItemActivity,
+            "Alterações discartadas",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+
 }
 
 
