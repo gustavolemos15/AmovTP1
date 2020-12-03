@@ -15,6 +15,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_novo_item.*
+import kotlinx.android.synthetic.main.activity_novo_item.view.*
 
 private const val CODIGO_CAMERA = 40
 private const val CODIGO_GALERIA = 41
@@ -25,8 +26,12 @@ class NovoItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_novo_item)
 
-        // Se calhar devemos meter isto numa função para tirar do main
+        //recebe dados
+        val principal = intent.getSerializableExtra("PRINCIPAL") as? Principal
+        val idLista = intent.getIntExtra("POSITION",0)
+        val lista = principal?.listas?.get(idLista)
 
+        // Se calhar devemos meter isto numa função para tirar do mai
         // https://developer.android.com/guide/topics/ui/controls/spinner
         val spnUni: Spinner = findViewById(R.id.spinnerUnidades)
         ArrayAdapter.createFromResource(
@@ -113,6 +118,24 @@ class NovoItemActivity : AppCompatActivity() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    fun onAdicionar(view: View, principal: Principal, idLista: Int) {
+
+        //TOD Completar com o resto dos atributos e fazer validacao
+        /*
+        val nome = view.etDesignacao.text.toString()
+        val quantidade = view.etQuantidade.text.toString().toInt()
+
+        principal.listas[idLista].lista.add(Produto(nome, quantidade, "marca", "categoria"))
+        val intent = Intent(this,EdicaoListaActivity::class.java)
+        //enviar objeto para a atividade
+        intent.putExtra("PRINCIPAL", principal)
+        intent.putExtra("POSITION", idLista)
+        startActivity(intent)*/
+
+
+
     }
 }
 
