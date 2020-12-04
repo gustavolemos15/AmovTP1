@@ -36,7 +36,7 @@
             android:textSize="20sp"
             android:onClick="onNovaLista"/>
         <Button
-            android:id="@+id/listasAnteriores"
+            android:id="@+id/btnListasAnteriores"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:layout_width="match_parent"
