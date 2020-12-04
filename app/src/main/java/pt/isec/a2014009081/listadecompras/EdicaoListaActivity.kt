@@ -55,7 +55,10 @@ class EdicaoListaActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //este when é só para o caso de adicionarmos mais opções ao menu, se for só uma retirar o when
         when (item.itemId) {
-            R.id.carrinho -> Toast.makeText(this,"Passar para a atividade de compras", Toast.LENGTH_SHORT).show()
+            R.id.carrinho -> {
+                val intent = Intent(this,CarrinhoActivity::class.java)
+                startActivity(intent)
+            }
             else -> return super.onOptionsItemSelected(item)
         }
         return true

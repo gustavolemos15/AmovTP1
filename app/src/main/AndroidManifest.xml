@@ -13,6 +13,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".InfoDetalhadaActivity"></activity>
         <activity android:name=".NovoItemActivity" />
+        <activity android:name=".CarrinhoActivity"></activity>
+        <activity android:name=".NovoItemActivity" />
         <activity android:name=".GestaoDadosActivity" />
         <activity android:name=".ListasAnterioresActivity" />
         <activity android:name=".EdicaoListaActivity" />

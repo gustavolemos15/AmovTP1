@@ -128,6 +128,9 @@ class NovoItemActivity : AppCompatActivity() {
         val nome = etDesignacao.text.toString()
         val quantidadeS = etQuantidade.text.toString()
         var quantidade = 0
+        val strSpinnerUnidades = spinnerUnidades.selectedItem.toString()
+
+
 
         if(nome == null || nome.length < 2) {
             //TODO: Toast "nome invalido"
