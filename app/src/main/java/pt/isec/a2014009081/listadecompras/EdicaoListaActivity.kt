@@ -8,6 +8,7 @@ import android.view.*
 import android.widget.BaseAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_edicao_lista.*
+import kotlinx.android.synthetic.main.activity_listas_anteriores.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.edicao_lista_item.view.*
 
@@ -30,6 +31,17 @@ class EdicaoListaActivity : AppCompatActivity() {
             if(listas[idLista].lista.size > 0) {
                 val adapter = PAdapter(this, principal, idLista)
                 lvEdicaoLista.adapter = adapter
+
+                val context = this
+                lvEdicaoLista.setOnItemClickListener { _, _, position, _ ->
+                    // 1
+                    val selectedProduto = principal.listas[idLista].lista[position]
+
+                    val intent = Intent(this,InfoDetalhadaActivity::class.java)
+                    //enviar objeto para a atividade
+                    intent.putExtra("PRODUTO", selectedProduto)
+                    startActivity(intent)
+                }
             }
         }
 

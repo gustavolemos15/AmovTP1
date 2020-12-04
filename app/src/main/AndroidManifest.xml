@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.isec.a2014009081.listadecompras">
-
     <!-- Permissão necessária para um targetSdkVersion >= 29 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -12,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NovoItemActivity"></activity>
+        <activity android:name=".InfoDetalhadaActivity"></activity>
+        <activity android:name=".NovoItemActivity" />
         <activity android:name=".GestaoDadosActivity" />
         <activity android:name=".ListasAnterioresActivity" />
         <activity android:name=".EdicaoListaActivity" />
