@@ -3,7 +3,8 @@ package pt.isec.a2014009081.listadecompras
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -11,12 +12,11 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import kotlinx.android.synthetic.main.activity_edicao_lista.*
 import kotlinx.android.synthetic.main.activity_novo_item.*
-import kotlinx.android.synthetic.main.activity_novo_item.view.*
 import java.lang.NumberFormatException
 
 private const val CODIGO_CAMERA = 40
@@ -64,6 +64,38 @@ class NovoItemActivity : AppCompatActivity() {
 
     }
 
+    fun criaToast(id:Int) {
+        Toast.makeText(
+            this@NovoItemActivity,
+            resources.getString(id),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun editTextDialog(tipo: String) {
+        val dlgBuilder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dlgLayout = inflater.inflate(R.layout.edit_text_dialog, null)
+        val et = dlgLayout.findViewById<EditText>(R.id.etDialog)
+        val title = java.lang.String.format(resources.getString(R.string.dlgUniCatTitle),tipo)
+        with(dlgBuilder) {
+            setTitle(title)
+            setPositiveButton(R.string.adicionar) {dialog, which ->
+                // verificar se está vazia, se sim toast a dizer que nada foi inserido
+                // fazer verificação do tipo para saber se foi categoria ou unidade
+                // fazer a  verficação também em ingles
+                Toast.makeText(
+                    this@NovoItemActivity,
+                    et.text.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            setView(dlgLayout)
+            setCancelable(true)
+            show()
+        }
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menunovoitem, menu)
         return true
@@ -72,8 +104,8 @@ class NovoItemActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         //este when usa-se quando se tem mais que uma opção
         when (item.itemId) {
-            R.id.menuCategoria -> Toast.makeText(this,"Fazer DialogBox para introduzir nova categoria", Toast.LENGTH_SHORT).show()
-            R.id.menuUnidade -> Toast.makeText(this,"Fazer DialogBox para introduzir nova unidade", Toast.LENGTH_SHORT).show()
+            R.id.menuCategoria -> editTextDialog(resources.getString(R.string.categoria))
+            R.id.menuUnidade -> editTextDialog(resources.getString(R.string.unidade))
             else -> return super.onOptionsItemSelected(item)
         }
         return true
@@ -114,6 +146,16 @@ class NovoItemActivity : AppCompatActivity() {
         if (requestCode == CODIGO_CAMERA && resultCode == Activity.RESULT_OK) {
             val fotoCapturada = data?.extras?.get("data") as Bitmap
             imagemItem.setImageBitmap(fotoCapturada)
+
+            // Save image to gallery
+            var savedImageURL = MediaStore.Images.Media.insertImage(
+                contentResolver,
+                fotoCapturada,
+                "Lista de Compras",
+                "Image of $title"
+            )
+
+
         }
 
         if (requestCode == CODIGO_GALERIA && resultCode == Activity.RESULT_OK) {
@@ -124,26 +166,43 @@ class NovoItemActivity : AppCompatActivity() {
         }
     }
 
+    fun onGuardarNovoItem(view: View) {
+        Toast.makeText(
+            this@NovoItemActivity,
+            "Item Guardado",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    fun onCancelarNovoItem(view: View) {
+        Toast.makeText(
+            this@NovoItemActivity,
+            "Alterações discartadas",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     fun onAdicionar(view: View, principal: Principal, idLista: Int) {
         val nome = etDesignacao.text.toString()
-        val quantidadeS = etQuantidade.text.toString()
+        val strQuantidade = etQuantidade.text.toString()
         var quantidade = 0
-        val strSpinnerUnidades = spinnerUnidades.selectedItem.toString()
+        val strSpinnerUni = spinnerUnidades.selectedItem.toString()
+        val strSpinnerCat = spinnerCategoria.selectedItem.toString()
 
 
 
         if(nome == null || nome.length < 2) {
-            //TODO: Toast "nome invalido"
+            criaToast(R.string.nomeInvalido)
             return
         }
-        if(quantidadeS == null || quantidadeS.length <= 0) {
-            //TODO Toast "quantidade invalida")
+        if(strQuantidade == null || strQuantidade.length <= 0) {
+            criaToast(R.string.quantidadeInvalida)
             return
         }else{
             try {
-                quantidade = quantidadeS.toInt()
+                quantidade = strQuantidade.toInt()
             }catch (e: NumberFormatException){
-                //TODO Toast "campo invalido"
+                criaToast(R.string.campoInvalido)
                 return
             }
         }

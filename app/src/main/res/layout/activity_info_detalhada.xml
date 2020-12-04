@@ -4,17 +4,127 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".InfoDetalhadaActivity"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    tools:context=".InfoDetalhadaActivity">
 
-    <TextView
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Designação"/>
-    <TextView
-        android:id="@+id/tvDesignacao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Designação"/>
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-127dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imagemItem"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginVertical="16dp"
+                android:src="@android:drawable/ic_menu_camera" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/designacao"
+                    android:paddingRight="8dp"
+                    android:textSize="26sp"
+                    android:textColor="#000000">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvDesignacao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/quantidade"
+                    android:paddingRight="8dp"
+                    android:textSize="26sp"
+                    android:textColor="#000000">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvQuantidade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/marca"
+                    android:paddingRight="8dp"
+                    android:textSize="26sp"
+                    android:textColor="#000000">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvMarca"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:paddingTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/categoria"
+                    android:paddingRight="8dp"
+                    android:textSize="26sp"
+                    android:textColor="#000000">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/tvCategoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>

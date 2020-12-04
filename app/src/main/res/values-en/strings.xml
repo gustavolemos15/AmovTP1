@@ -25,4 +25,8 @@
     <string name="guardar">Save</string>
     <string name="cancelar">Cancel</string>
     <string name="ordenar">Sort</string>
+    <string name="unidade">Unit</string>
+    <string name="nomeInvalido">Nome inválido</string>
+    <string name="quantidadeInvalida">Quantidade invalida</string>
+    <string name="campoInvalido">Campo inválido</string>
 </resources>

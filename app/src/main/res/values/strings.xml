@@ -17,6 +17,7 @@
     <string name="categoria">Categoria</string>
     <string name="foto">Foto</string>
     <string name="unidades">Unidades</string>
+    <string name="unidade">Unidade</string>
     <string name="categorias">Categorias</string>
     <string name="dlgUniCatTitle">Nova %1$s</string>
     <string name="adicionar">Adicionar</string>
@@ -24,4 +25,7 @@
     <string name="guardar">Guardar</string>
     <string name="cancelar">Cancelar</string>
     <string name="ordenar">Ordenar</string>
+    <string name="nomeInvalido">Nome inválido</string>
+    <string name="quantidadeInvalida">Quantidade invalida</string>
+    <string name="campoInvalido">Campo inválido</string>
 </resources>

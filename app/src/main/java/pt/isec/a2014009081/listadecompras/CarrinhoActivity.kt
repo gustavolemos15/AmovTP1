@@ -25,7 +25,7 @@ class CarrinhoActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menulistacompras, menu)
+        menuInflater.inflate(R.menu.menucarrinho, menu)
         return true
     }
 

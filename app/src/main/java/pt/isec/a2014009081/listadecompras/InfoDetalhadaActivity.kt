@@ -16,7 +16,9 @@ class InfoDetalhadaActivity : AppCompatActivity() {
         //TODO: criar layout para mostrar a informacao do produto
         if (produto != null){
             //TODO: fazer aqui a ligacao entre o produto e o layout para mostrar a info nas TextViews
-           // tvDesignacao.text = produto.nome
+            tvDesignacao.text = produto.nome
+            tvCategoria.text = produto.categoria
+            tvMarca.text = produto.marca
         }
     }
 }
