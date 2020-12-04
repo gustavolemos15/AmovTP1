@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
+import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.BaseAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_edicao_lista.*
@@ -14,6 +15,10 @@ import kotlinx.android.synthetic.main.edicao_lista_item.view.*
 
 class EdicaoListaActivity : AppCompatActivity() {
 
+    lateinit var principal: Principal
+    var idLista: Int = 0
+    lateinit var adapter : PAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edicao_lista)
@@ -21,16 +26,17 @@ class EdicaoListaActivity : AppCompatActivity() {
         val nomes = resources.getStringArray(R.array.nomeItems_array)
         val qtds = resources.getStringArray(R.array.qtdItems_array)
 
-        val principal = intent.getSerializableExtra("PRINCIPAL") as? Principal
-        val idLista = intent.getIntExtra("IDLISTA",0)
+        principal = intent.getSerializableExtra("PRINCIPAL") as Principal
+        idLista = intent.getIntExtra("IDLISTA",0)
         val listas = principal?.listas
         println(idLista)
 
         if(listas != null) {
             btnNovoItem.setOnClickListener { onNovoItem(it, principal, idLista) }
             if(listas[idLista].lista.size > 0) {
-                val adapter = PAdapter(this, principal, idLista)
+                adapter = PAdapter(this, principal, idLista)
                 lvEdicaoLista.adapter = adapter
+                registerForContextMenu(lvEdicaoLista)
 
                 val context = this
                 lvEdicaoLista.setOnItemClickListener { _, _, position, _ ->
@@ -70,6 +76,29 @@ class EdicaoListaActivity : AppCompatActivity() {
         intent.putExtra("IDLISTA", idLista)
         startActivity(intent)
         //Snackbar.make(view, "Pop-up ou atividade para adicionar artigo", Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu?,
+        v: View?,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu_eliminar_produto, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val info = item.menuInfo as AdapterContextMenuInfo
+
+        return when (item.itemId) {
+            R.id.eliminar -> {
+                principal.listas[idLista].lista.removeAt(info.position)
+                adapter.notifyDataSetChanged()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
 
