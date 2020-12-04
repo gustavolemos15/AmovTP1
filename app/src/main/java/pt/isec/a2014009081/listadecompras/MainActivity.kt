@@ -2,11 +2,8 @@ package pt.isec.a2014009081.listadecompras
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.view.Window
-import android.widget.Button
 import kotlinx.android.synthetic.main.activity_main.*
 
 // Activity em vez de AppCompatActivity para tirar a titlebar
@@ -20,7 +17,7 @@ class MainActivity : Activity() {
         val principal = Principal()
 
         //id do botao
-        listasAnteriores.setOnClickListener { onListasAnteriores(it, principal) }
+        btnListasAnteriores.setOnClickListener{ onListasAnteriores(it, principal) }
 
     }
 

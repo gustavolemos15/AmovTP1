@@ -14,8 +14,10 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import kotlinx.android.synthetic.main.activity_edicao_lista.*
 import kotlinx.android.synthetic.main.activity_novo_item.*
 import kotlinx.android.synthetic.main.activity_novo_item.view.*
+import java.lang.NumberFormatException
 
 private const val CODIGO_CAMERA = 40
 private const val CODIGO_GALERIA = 41
@@ -28,9 +30,11 @@ class NovoItemActivity : AppCompatActivity() {
 
         //recebe dados
         val principal = intent.getSerializableExtra("PRINCIPAL") as? Principal
-        val idLista = intent.getIntExtra("POSITION",0)
-        val lista = principal?.listas?.get(idLista)
+        val idLista = intent.getIntExtra("IDLISTA",0)
 
+        if(principal?.listas != null){
+            btnGravar.setOnClickListener { onAdicionar(it, principal, idLista) }
+        }
         // Se calhar devemos meter isto numa função para tirar do mai
         // https://developer.android.com/guide/topics/ui/controls/spinner
         val spnUni: Spinner = findViewById(R.id.spinnerUnidades)
@@ -121,21 +125,35 @@ class NovoItemActivity : AppCompatActivity() {
     }
 
     fun onAdicionar(view: View, principal: Principal, idLista: Int) {
+        val nome = etDesignacao.text.toString()
+        val quantidadeS = etQuantidade.text.toString()
+        var quantidade = 0
 
-        //TOD Completar com o resto dos atributos e fazer validacao
-        /*
-        val nome = view.etDesignacao.text.toString()
-        val quantidade = view.etQuantidade.text.toString().toInt()
+        if(nome == null || nome.length < 2) {
+            //TODO: Toast "nome invalido"
+            return
+        }
+        if(quantidadeS == null || quantidadeS.length <= 0) {
+            //TODO Toast "quantidade invalida")
+            return
+        }else{
+            try {
+                quantidade = quantidadeS.toInt()
+            }catch (e: NumberFormatException){
+                //TODO Toast "campo invalido"
+                return
+            }
+        }
+                //TODO: get string Categoria e Quantidade e Marca, get foto
 
         principal.listas[idLista].lista.add(Produto(nome, quantidade, "marca", "categoria"))
+        println("${principal.listas[idLista].lista.size}")
+
         val intent = Intent(this,EdicaoListaActivity::class.java)
         //enviar objeto para a atividade
         intent.putExtra("PRINCIPAL", principal)
-        intent.putExtra("POSITION", idLista)
-        startActivity(intent)*/
-
-
-
+        intent.putExtra("IDLISTA", idLista)
+        startActivity(intent)
     }
 }
 

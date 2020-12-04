@@ -5,11 +5,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
-import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import android.widget.Toast
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_edicao_lista.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.edicao_lista_item.view.*
 
 class EdicaoListaActivity : AppCompatActivity() {
@@ -27,6 +26,7 @@ class EdicaoListaActivity : AppCompatActivity() {
         println(idLista)
 
         if(listas != null) {
+            btnNovoItem.setOnClickListener { onNovoItem(it, principal, idLista) }
             if(listas[idLista].lista.size > 0) {
                 val adapter = PAdapter(this, principal, idLista)
                 lvEdicaoLista.adapter = adapter
@@ -49,8 +49,10 @@ class EdicaoListaActivity : AppCompatActivity() {
         return true
     }
 
-    fun onNovoItem(view: View) {
+    fun onNovoItem(view : View, principal: Principal, idLista: Int) {
         val intent = Intent(this,NovoItemActivity::class.java)
+        intent.putExtra("PRINCIPAL", principal)
+        intent.putExtra("IDLISTA", idLista)
         startActivity(intent)
         //Snackbar.make(view, "Pop-up ou atividade para adicionar artigo", Snackbar.LENGTH_LONG).show()
     }
