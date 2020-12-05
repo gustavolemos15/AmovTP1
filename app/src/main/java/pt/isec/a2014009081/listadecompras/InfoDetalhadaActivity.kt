@@ -19,6 +19,11 @@ class InfoDetalhadaActivity : AppCompatActivity() {
             tvDesignacao.text = produto.nome
             tvCategoria.text = produto.categoria
             tvMarca.text = produto.marca
+
+            // Tratameto para a quantidade
+            val a = produto.quantidade; val b = " "; val c = produto.unidade; val sb = StringBuilder()
+            sb.append(a).append(b).append(c)
+            tvQuantidade.text = sb.toString()
         }
     }
 }

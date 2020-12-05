@@ -2,12 +2,13 @@ package pt.isec.a2014009081.listadecompras
 
 import java.io.Serializable
 
-class Produto(Nome : String, Quantidade: Int, Marca: String, Categoria: String) : Serializable {
+class Produto(Nome : String, Quantidade: Int=0, Marca: String=" ", Categoria: String = " ", Unidade: String= " ", Notas :String = " ") : Serializable {
     val nome  = Nome
     var quantidade = Quantidade
     val marca = Marca
     val categoria = Categoria
-
-    val notas : ArrayList<String> = ArrayList()
-
+    val unidade = Unidade
+    var notas = Notas
+    var carrinho : Boolean = false
+    var histPrecos : ArrayList<Float> = ArrayList()
 }

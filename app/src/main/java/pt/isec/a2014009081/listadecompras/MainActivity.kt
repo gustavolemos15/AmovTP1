@@ -4,10 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.edit_text_dialog.view.*
 
 // Activity em vez de AppCompatActivity para tirar a titlebar
 class MainActivity : Activity() {
@@ -28,15 +28,13 @@ class MainActivity : Activity() {
         val dlgBuilder = AlertDialog.Builder(this)
         val inflater = layoutInflater
         val dlgLayout = inflater.inflate(R.layout.edit_text_dialog, null)
-        val editText = dlgLayout.findViewById<EditText>(R.id.etDialog)
+        val editText = dlgLayout.etDialog
         val intent = Intent(this,EdicaoListaActivity::class.java)
 
         with(dlgBuilder) {
             setTitle(R.string.primeiroBotao)
             setPositiveButton(R.string.adicionar) { dialog, which ->
                 // verificar se está vazia, se sim toast a dizer que nada foi inserido
-                // fazer verificação do tipo para saber se foi categoria ou unidade
-                // fazer a  verficação também em ingles
                 Toast.makeText(
                     this@MainActivity,
                     editText.text.toString(),

@@ -208,7 +208,7 @@ class NovoItemActivity : AppCompatActivity() {
         }
                 //TODO: get string Categoria e Quantidade e Marca, get foto
 
-        principal.listas[idLista].lista.add(Produto(nome, quantidade, "marca", "categoria"))
+        principal.listas[idLista].lista.add(Produto(nome, quantidade, "marca", "categoria", "unidade"))
         println("${principal.listas[idLista].lista.size}")
 
         val intent = Intent(this,EdicaoListaActivity::class.java)
