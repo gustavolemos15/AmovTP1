@@ -62,6 +62,15 @@ class ListasAnterioresActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        //enviar objeto para a atividade
+        intent.putExtra("PRINCIPAL", principal)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+        super.onBackPressed()
+    }
 }
 
 class ListasAdapter(private val context: Context, private val dataSource: Principal) : BaseAdapter() {

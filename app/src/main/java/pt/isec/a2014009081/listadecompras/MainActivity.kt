@@ -14,6 +14,7 @@ class MainActivity : Activity() {
 
     lateinit var principal: Principal
     private val ADD_LISTA = 3
+    private val LISTAS_ANTERIORES= 4
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,15 @@ class MainActivity : Activity() {
                 }
             }
         }
+        if(requestCode == LISTAS_ANTERIORES) {
+            if (resultCode == Activity.RESULT_OK) {
+                // 3
+                var p = data?.getSerializableExtra("PRINCIPAL") as Principal?
+                if(p != null) {
+                    principal = p
+                }
+            }
+        }
     }
 
     fun onNovaLista(view: View) {
@@ -53,8 +63,7 @@ class MainActivity : Activity() {
                 // verificar se está vazia, se sim toast a dizer que nada foi inserido
                 if(editText.text.toString().isEmpty())
                     return@setPositiveButton
-                principal.listas.add(0, Lista(editText.text.toString()))
-                intent.putExtra("LISTA", principal.listas[0])
+                intent.putExtra("LISTA", Lista(editText.text.toString()))
                 startActivityForResult(intent, ADD_LISTA)
             }
             setView(dlgLayout)
@@ -68,7 +77,7 @@ class MainActivity : Activity() {
         val intent = Intent(this,ListasAnterioresActivity::class.java)
         //enviar objeto para a atividade
         intent.putExtra("PRINCIPAL", principal)
-        startActivity(intent)
+        startActivityForResult(intent, LISTAS_ANTERIORES)
     }
 
     fun onGestaoDados(view: View) {
