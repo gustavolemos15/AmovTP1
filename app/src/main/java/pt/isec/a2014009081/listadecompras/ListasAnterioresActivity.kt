@@ -1,5 +1,6 @@
 package pt.isec.a2014009081.listadecompras
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -16,30 +17,49 @@ import kotlin.math.log
 
 class ListasAnterioresActivity : AppCompatActivity() {
 
+    lateinit var principal: Principal
+    lateinit var adapter : ListasAdapter
+    private val RECEBE_LISTA = 4
+    var posicao : Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listas_anteriores)
 
         //receber objeto vindo de outra atividade
-        val principal = intent.getSerializableExtra("PRINCIPAL") as? Principal
+        principal = intent.getSerializableExtra("PRINCIPAL") as Principal
         val listas = principal?.listas
 
         if (listas != null) {
             
-            val adapter = ListasAdapter(this, principal)
+            adapter = ListasAdapter(this, principal)
             listasAnterioresView.adapter = adapter
 
               val context = this
               listasAnterioresView.setOnItemClickListener { _, _, position, _ ->
                 // 1
                 val selectedLista = principal.listas[position]
-
+                    posicao = position
                   val intent = Intent(this,EdicaoListaActivity::class.java)
                   //enviar objeto para a atividade
-                  intent.putExtra("PRINCIPAL", principal)
-                  intent.putExtra("IDLISTA", position)
-                  startActivity(intent)
+                  intent.putExtra("LISTA", selectedLista)
+                  startActivityForResult(intent, RECEBE_LISTA)
               }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == RECEBE_LISTA) {
+            if (resultCode == Activity.RESULT_OK) {
+                // 3
+                var lista = data?.getSerializableExtra("LISTA") as Lista?
+                if(lista != null && posicao >= 0) {
+                    principal.listas.removeAt(posicao)
+                    principal.listas.add(posicao, lista)
+                    adapter.notifyDataSetChanged()
+                }
+            }
         }
     }
 }

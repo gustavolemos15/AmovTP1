@@ -12,16 +12,32 @@ import kotlinx.android.synthetic.main.edit_text_dialog.view.*
 // Activity em vez de AppCompatActivity para tirar a titlebar
 class MainActivity : Activity() {
 
+    lateinit var principal: Principal
+    private val ADD_LISTA = 3
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         //"class main" -> nome principal
-        val principal = Principal()
+        principal = Principal()
 
         //id do botao
         btnListasAnteriores.setOnClickListener{ onListasAnteriores(it, principal) }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == ADD_LISTA) {
+            if (resultCode == Activity.RESULT_OK) {
+                // 3
+                var lista = data?.getSerializableExtra("LISTA") as Lista?
+                if(lista != null) {
+                    principal.listas.add(0, lista)
+                }
+            }
+        }
     }
 
     fun onNovaLista(view: View) {
@@ -35,13 +51,11 @@ class MainActivity : Activity() {
             setTitle(R.string.primeiroBotao)
             setPositiveButton(R.string.adicionar) { dialog, which ->
                 // verificar se está vazia, se sim toast a dizer que nada foi inserido
-                Toast.makeText(
-                    this@MainActivity,
-                    editText.text.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                startActivity(intent)
+                if(editText.text.toString().isEmpty())
+                    return@setPositiveButton
+                principal.listas.add(0, Lista(editText.text.toString()))
+                intent.putExtra("LISTA", principal.listas[0])
+                startActivityForResult(intent, ADD_LISTA)
             }
             setView(dlgLayout)
             setCancelable(true)

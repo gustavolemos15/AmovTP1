@@ -28,13 +28,9 @@ class NovoItemActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_novo_item)
 
-        //recebe dados
-        val principal = intent.getSerializableExtra("PRINCIPAL") as? Principal
-        val idLista = intent.getIntExtra("IDLISTA",0)
 
-        if(principal?.listas != null){
-            btnGravar.setOnClickListener { onAdicionar(it, principal, idLista) }
-        }
+        btnGravar.setOnClickListener { onAdicionar(it) }
+
         // Se calhar devemos meter isto numa função para tirar do mai
         // https://developer.android.com/guide/topics/ui/controls/spinner
         val spnUni: Spinner = findViewById(R.id.spinnerUnidades)
@@ -182,7 +178,7 @@ class NovoItemActivity : AppCompatActivity() {
         ).show()
     }
 
-    fun onAdicionar(view: View, principal: Principal, idLista: Int) {
+    fun onAdicionar(view: View) {
         val nome = etDesignacao.text.toString()
         val strQuantidade = etQuantidade.text.toString()
         var quantidade = 0
@@ -208,14 +204,13 @@ class NovoItemActivity : AppCompatActivity() {
         }
                 //TODO: get string Categoria e Quantidade e Marca, get foto
 
-        principal.listas[idLista].lista.add(Produto(nome, quantidade, "marca", "categoria", "unidade"))
-        println("${principal.listas[idLista].lista.size}")
+        val produto = Produto(nome, quantidade, "marca", "categoria", "unidade")
 
-        val intent = Intent(this,EdicaoListaActivity::class.java)
+        val intent = Intent()
         //enviar objeto para a atividade
-        intent.putExtra("PRINCIPAL", principal)
-        intent.putExtra("IDLISTA", idLista)
-        startActivity(intent)
+        intent.putExtra("PRODUTO", produto)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
     }
 }
 

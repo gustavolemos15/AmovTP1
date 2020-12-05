@@ -1,5 +1,6 @@
 package pt.isec.a2014009081.listadecompras
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -15,42 +16,56 @@ import kotlinx.android.synthetic.main.edicao_lista_item.view.*
 
 class EdicaoListaActivity : AppCompatActivity() {
 
-    lateinit var principal: Principal
-    var idLista: Int = 0
+    lateinit var lista: Lista
     lateinit var adapter : PAdapter
+    private val ADD_PRODUTO = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edicao_lista)
 
-        val nomes = resources.getStringArray(R.array.nomeItems_array)
-        val qtds = resources.getStringArray(R.array.qtdItems_array)
 
-        principal = intent.getSerializableExtra("PRINCIPAL") as Principal
-        idLista = intent.getIntExtra("IDLISTA",0)
-        val listas = principal?.listas
-        println(idLista)
+        lista = intent.getSerializableExtra("LISTA") as Lista
 
-        if(listas != null) {
-            btnNovoItem.setOnClickListener { onNovoItem(it, principal, idLista) }
-            if(listas[idLista].lista.size > 0) {
-                adapter = PAdapter(this, principal, idLista)
+        if(lista != null) {
+            btnNovoItem.setOnClickListener { onNovoItem(it) }
+                adapter = PAdapter(this, lista)
                 lvEdicaoLista.adapter = adapter
                 registerForContextMenu(lvEdicaoLista)
 
                 val context = this
                 lvEdicaoLista.setOnItemClickListener { _, _, position, _ ->
                     // 1
-                    val selectedProduto = principal.listas[idLista].lista[position]
+                    val selectedProduto = lista.lista[position]
 
                     val intent = Intent(this,InfoDetalhadaActivity::class.java)
                     //enviar objeto para a atividade
                     intent.putExtra("PRODUTO", selectedProduto)
                     startActivity(intent)
                 }
-            }
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+            if(requestCode == ADD_PRODUTO) {
+                if (resultCode == Activity.RESULT_OK) {
+                    // 3
+                    var produto:Produto = data?.getSerializableExtra("PRODUTO") as Produto
+                    lista.lista.add(produto)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent()
+        //enviar objeto para a atividade
+        intent.putExtra("LISTA", lista)
+        setResult(Activity.RESULT_OK, intent)
+        finish()
+        super.onBackPressed()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,11 +85,9 @@ class EdicaoListaActivity : AppCompatActivity() {
         return true
     }
 
-    fun onNovoItem(view : View, principal: Principal, idLista: Int) {
+    fun onNovoItem(view : View) {
         val intent = Intent(this,NovoItemActivity::class.java)
-        intent.putExtra("PRINCIPAL", principal)
-        intent.putExtra("IDLISTA", idLista)
-        startActivity(intent)
+        startActivityForResult(intent, ADD_PRODUTO)
         //Snackbar.make(view, "Pop-up ou atividade para adicionar artigo", Snackbar.LENGTH_LONG).show()
     }
 
@@ -93,7 +106,7 @@ class EdicaoListaActivity : AppCompatActivity() {
 
         return when (item.itemId) {
             R.id.eliminar -> {
-                principal.listas[idLista].lista.removeAt(info.position)
+                lista.lista.removeAt(info.position)
                 adapter.notifyDataSetChanged()
                 return true
             }
@@ -102,17 +115,17 @@ class EdicaoListaActivity : AppCompatActivity() {
     }
 }
 
-class PAdapter(private val context: Context, private val dataSource: Principal, private val idLista : Int) : BaseAdapter() {
+class PAdapter(private val context: Context, private val dataSource: Lista) : BaseAdapter() {
 
     private val inflater: LayoutInflater =
         context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     override fun getCount(): Int {
-        return dataSource.listas[idLista].lista.size
+        return dataSource.lista.size
     }
 
     override fun getItem(p0: Int): Any {
-        return dataSource.listas[idLista].lista[p0]
+        return dataSource.lista[p0]
     }
 
     override fun getItemId(p0: Int): Long {
@@ -122,7 +135,7 @@ class PAdapter(private val context: Context, private val dataSource: Principal, 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
 
         val rowView = inflater.inflate(R.layout.edicao_lista_item, p2, false)
-        val lista = dataSource.listas[idLista].lista[p0]
+        val lista = dataSource.lista[p0]
 
         val nome = rowView.edicaoTituloItem
         val unidades = rowView.edicaoUnidades
