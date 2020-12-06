@@ -1,7 +1,9 @@
 package pt.isec.a2014009081.listadecompras
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -14,7 +16,10 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_novo_item.*
+
 
 private const val CODIGO_CAMERA = 40
 private const val CODIGO_GALERIA = 41
@@ -23,6 +28,7 @@ class NovoItemActivity : AppCompatActivity() {
 
     lateinit var categorias : ArrayList<String>
     lateinit var unidades : ArrayList<String>
+    lateinit var foto :Bitmap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +39,18 @@ class NovoItemActivity : AppCompatActivity() {
 
         btnGravar.setOnClickListener { onAdicionar(it) }
 
+        if (checkPermission()) {
+
+        } else {
+            requestPermission();
+        }
+
         // Se calhar devemos meter isto numa função para tirar do mai
         // https://developer.android.com/guide/topics/ui/controls/spinner
         val spnUni: Spinner = findViewById(R.id.spinnerUnidades)
         ArrayAdapter(
             this, android.R.layout.simple_spinner_item, unidades
-        ).also {adapter ->
+        ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -48,7 +60,7 @@ class NovoItemActivity : AppCompatActivity() {
         val spnCat: Spinner = findViewById(R.id.spinnerCategoria)
         ArrayAdapter(
             this, android.R.layout.simple_spinner_item, categorias
-        ).also {adapter ->
+        ).also { adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             // Apply the adapter to the spinner
@@ -58,7 +70,23 @@ class NovoItemActivity : AppCompatActivity() {
 
     }
 
-    fun criaToast(id:Int) {
+    private fun checkPermission(): Boolean {
+        return if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            // Permission is not granted
+            false
+        } else true
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(Manifest.permission.CAMERA),
+            CODIGO_CAMERA
+        )
+    }
+
+    fun criaToast(id: Int) {
         Toast.makeText(
             this@NovoItemActivity,
             resources.getString(id),
@@ -71,10 +99,10 @@ class NovoItemActivity : AppCompatActivity() {
         val inflater = layoutInflater
         val dlgLayout = inflater.inflate(R.layout.edit_text_dialog, null)
         val et = dlgLayout.findViewById<EditText>(R.id.etDialog)
-        val title = java.lang.String.format(resources.getString(R.string.dlgUniCatTitle),tipo)
+        val title = java.lang.String.format(resources.getString(R.string.dlgUniCatTitle), tipo)
         with(dlgBuilder) {
             setTitle(title)
-            setPositiveButton(R.string.adicionar) {dialog, which ->
+            setPositiveButton(R.string.adicionar) { dialog, which ->
                 if(tipo == "Categoria")
                 categorias.add(et.text.toString())
                 else
@@ -104,8 +132,8 @@ class NovoItemActivity : AppCompatActivity() {
     fun onDialogFoto(view: View) {
         val dlg = AlertDialog.Builder(this)
             .setTitle("Origem da foto")
-            .setPositiveButton("Galeria", {dialog, which ->  acederGaleria()})
-            .setNegativeButton("Camara", {dialog, which -> acederCamara()})
+            .setPositiveButton("Galeria", { dialog, which -> acederGaleria() })
+            .setNegativeButton("Camara", { dialog, which -> acederCamara() })
             .setCancelable(true)
             .create()
 
@@ -120,7 +148,7 @@ class NovoItemActivity : AppCompatActivity() {
         if(takePictureIntent.resolveActivity(this.packageManager) != null) {
             startActivityForResult(takePictureIntent, CODIGO_CAMERA)
         } else {
-            Toast.makeText(this,"Unable to open camera", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Unable to open camera", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -136,6 +164,7 @@ class NovoItemActivity : AppCompatActivity() {
         if (requestCode == CODIGO_CAMERA && resultCode == Activity.RESULT_OK) {
             val fotoCapturada = data?.extras?.get("data") as Bitmap
             imagemItem.setImageBitmap(fotoCapturada)
+            foto = fotoCapturada
 
         }
 
@@ -188,6 +217,7 @@ class NovoItemActivity : AppCompatActivity() {
                 //TODO: get string Categoria e Quantidade e Marca, get foto
 
         val produto = Produto(nome, quantidade, marca, strSpinnerCat, strSpinnerUni, notas)
+        //produto.imagem = foto
 
 
         val intent = Intent()
