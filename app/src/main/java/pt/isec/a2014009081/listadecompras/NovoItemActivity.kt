@@ -21,20 +21,23 @@ private const val CODIGO_GALERIA = 41
 
 class NovoItemActivity : AppCompatActivity() {
 
+    lateinit var categorias : ArrayList<String>
+    lateinit var unidades : ArrayList<String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_novo_item)
 
+        categorias = intent.getSerializableExtra("CATEGORIAS") as ArrayList<String>
+        unidades = intent.getSerializableExtra("UNIDADES") as ArrayList<String>
 
         btnGravar.setOnClickListener { onAdicionar(it) }
 
         // Se calhar devemos meter isto numa função para tirar do mai
         // https://developer.android.com/guide/topics/ui/controls/spinner
         val spnUni: Spinner = findViewById(R.id.spinnerUnidades)
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.unidades_array,
-            android.R.layout.simple_spinner_item
+        ArrayAdapter(
+            this, android.R.layout.simple_spinner_item, unidades
         ).also {adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -43,10 +46,8 @@ class NovoItemActivity : AppCompatActivity() {
         }
 
         val spnCat: Spinner = findViewById(R.id.spinnerCategoria)
-        ArrayAdapter.createFromResource(
-            this,
-            R.array.categorias_array,
-            android.R.layout.simple_spinner_item
+        ArrayAdapter(
+            this, android.R.layout.simple_spinner_item, categorias
         ).also {adapter ->
             // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -74,14 +75,10 @@ class NovoItemActivity : AppCompatActivity() {
         with(dlgBuilder) {
             setTitle(title)
             setPositiveButton(R.string.adicionar) {dialog, which ->
-                // verificar se está vazia, se sim toast a dizer que nada foi inserido
-                // fazer verificação do tipo para saber se foi categoria ou unidade
-                // fazer a  verficação também em ingles
-                Toast.makeText(
-                    this@NovoItemActivity,
-                    et.text.toString(),
-                    Toast.LENGTH_SHORT
-                ).show()
+                if(tipo == "Categoria")
+                categorias.add(et.text.toString())
+                else
+                    unidades.add(et.text.toString())
             }
             setView(dlgLayout)
             setCancelable(true)
@@ -196,6 +193,8 @@ class NovoItemActivity : AppCompatActivity() {
         val intent = Intent()
         //enviar objeto para a atividade
         intent.putExtra("PRODUTO", produto)
+        intent.putExtra("CATEGORIAS", categorias)
+        intent.putExtra("UNIDADES", unidades)
         setResult(Activity.RESULT_OK, intent)
         finish()
     }

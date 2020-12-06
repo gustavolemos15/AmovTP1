@@ -39,10 +39,15 @@ class ListasAnterioresActivity : AppCompatActivity() {
               listasAnterioresView.setOnItemClickListener { _, _, position, _ ->
                 // 1
                 val selectedLista = principal.listas[position]
+                  val categorias = principal.categorias
+                  val unidades = principal.unidades
+
                     posicao = position
                   val intent = Intent(this,EdicaoListaActivity::class.java)
                   //enviar objeto para a atividade
                   intent.putExtra("LISTA", selectedLista)
+                  intent.putExtra("CATEGORIAS", categorias)
+                  intent.putExtra("UNIDADES", unidades)
                   startActivityForResult(intent, RECEBE_LISTA)
               }
         }
@@ -54,6 +59,13 @@ class ListasAnterioresActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // 3
                 var lista = data?.getSerializableExtra("LISTA") as Lista?
+                var cat = data?.getSerializableExtra("CATEGORIAS") as ArrayList<String>?
+                var un = data?.getSerializableExtra("UNIDADES") as ArrayList<String>?
+
+                if (un != null && cat != null) {
+                    principal.categorias = cat
+                    principal.unidades = un
+                }
                 if(lista != null && posicao >= 0) {
                     principal.listas.removeAt(posicao)
                     principal.listas.add(posicao, lista)

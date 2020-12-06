@@ -18,6 +18,8 @@ class EdicaoListaActivity : AppCompatActivity() {
 
     lateinit var lista: Lista
     lateinit var adapter : PAdapter
+    lateinit var categorias : ArrayList<String>
+    lateinit var unidades : ArrayList<String>
     private val ADD_PRODUTO = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +28,8 @@ class EdicaoListaActivity : AppCompatActivity() {
 
 
         lista = intent.getSerializableExtra("LISTA") as Lista
+        categorias = intent.getSerializableExtra("CATEGORIAS") as ArrayList<String>
+        unidades = intent.getSerializableExtra("UNIDADES") as ArrayList<String>
 
         if(lista != null) {
             btnNovoItem.setOnClickListener { onNovoItem(it) }
@@ -53,6 +57,13 @@ class EdicaoListaActivity : AppCompatActivity() {
                 if (resultCode == Activity.RESULT_OK) {
                     // 3
                     var produto:Produto = data?.getSerializableExtra("PRODUTO") as Produto
+                    var cat = data?.getSerializableExtra("CATEGORIAS") as ArrayList<String>?
+                    var un = data?.getSerializableExtra("UNIDADES") as ArrayList<String>?
+
+                    if (un != null && cat != null) {
+                        categorias = cat
+                        unidades = un
+                    }
                     lista.lista.add(produto)
                     adapter.notifyDataSetChanged()
                 }
@@ -63,6 +74,8 @@ class EdicaoListaActivity : AppCompatActivity() {
         val intent = Intent()
         //enviar objeto para a atividade
         intent.putExtra("LISTA", lista)
+        intent.putExtra("CATEGORIAS", categorias)
+        intent.putExtra("UNIDADES", unidades)
         setResult(Activity.RESULT_OK, intent)
         finish()
         super.onBackPressed()
@@ -87,6 +100,8 @@ class EdicaoListaActivity : AppCompatActivity() {
 
     fun onNovoItem(view : View) {
         val intent = Intent(this,NovoItemActivity::class.java)
+        intent.putExtra("CATEGORIAS",categorias)
+        intent.putExtra("UNIDADES", unidades)
         startActivityForResult(intent, ADD_PRODUTO)
         //Snackbar.make(view, "Pop-up ou atividade para adicionar artigo", Snackbar.LENGTH_LONG).show()
     }

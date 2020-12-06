@@ -61,9 +61,12 @@ class MainActivity : Activity() {
         try {
             principal = gson.fromJson(text, Principal::class.java)
         }catch (e: IllegalStateException){
+            var cat = resources.getStringArray(R.array.categorias_array).toCollection(ArrayList())
+            var un = resources.getStringArray(R.array.unidades_array).toCollection(ArrayList())
+            principal.categorias = cat
+            principal.unidades = un
             saveData()
         }
-
 
         //id do botao
         btnListasAnteriores.setOnClickListener{ onListasAnteriores(it, principal) }
@@ -76,6 +79,13 @@ class MainActivity : Activity() {
             if (resultCode == Activity.RESULT_OK) {
                 // 3
                 var lista = data?.getSerializableExtra("LISTA") as Lista?
+                var cat = data?.getSerializableExtra("CATEGORIAS") as ArrayList<String>?
+                var un = data?.getSerializableExtra("UNIDADES") as ArrayList<String>?
+
+                if (un != null && cat != null) {
+                    principal.categorias = cat
+                    principal.unidades = un
+                }
                 if(lista != null) {
                     principal.listas.add(0, lista)
                     saveData()
@@ -124,6 +134,8 @@ class MainActivity : Activity() {
                 if(editText.text.toString().isEmpty())
                     return@setPositiveButton
                 intent.putExtra("LISTA", Lista(editText.text.toString()))
+                intent.putExtra("CATEGORIAS", principal.categorias)
+                intent.putExtra("UNIDADES", principal.unidades)
                 startActivityForResult(intent, ADD_LISTA)
             }
             setView(dlgLayout)
