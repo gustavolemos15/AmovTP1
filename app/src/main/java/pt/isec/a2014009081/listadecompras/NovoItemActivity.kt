@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_novo_item.*
 import java.io.ByteArrayOutputStream
 
-
+private const val PERMISSAO_CAMERA = 30
 private const val CODIGO_CAMERA = 40
 private const val CODIGO_GALERIA = 41
 
@@ -173,19 +173,13 @@ class NovoItemActivity : AppCompatActivity() {
         if (requestCode == CODIGO_GALERIA && resultCode == Activity.RESULT_OK) {
             val uri = data!!.data
             imagemItem.setImageURI(uri)
-            val bitmap =
-                MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
 
     fun onCancelarNovoItem(view: View) {
-        Toast.makeText(
-            this@NovoItemActivity,
-            "Alterações discartadas",
-            Toast.LENGTH_SHORT
-        ).show()
+        finish()
     }
 
     fun onAdicionar(view: View) {

@@ -26,6 +26,7 @@ class MainActivity : Activity() {
         //"class main" -> nome principal
         principal = Principal()
 
+
         val gson = Gson()
         var text = ""
         //Make sure to use a try-catch statement to catch any errors

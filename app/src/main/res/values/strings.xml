@@ -2,7 +2,7 @@
     <string name="app_name">Lista de Compras</string>
     <string name="titulo">Lista de Compras</string>
     <string name="primeiroBotao">Nova Lista</string>
-    <string name="segundoBotao"> Listas Anteriores </string>
+    <string name="segundoBotao"> Minhas Listas </string>
     <string name="terceiroBotao">Gestão de Dados</string>
     <string name="menu_carrinho">Carrinho</string>
     <string name="novoItem">Novo Item</string>

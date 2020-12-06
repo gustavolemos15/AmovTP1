@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView.AdapterContextMenuInfo
 import android.widget.BaseAdapter
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_edicao_lista.*
-import kotlinx.android.synthetic.main.activity_listas_anteriores.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.edicao_lista_item.view.*
 
 class EdicaoListaActivity : AppCompatActivity() {
@@ -22,6 +19,8 @@ class EdicaoListaActivity : AppCompatActivity() {
     lateinit var categorias : ArrayList<String>
     lateinit var unidades : ArrayList<String>
     private val ADD_PRODUTO = 1
+    private val EDIT_PRODUTO = 2
+    var posNaLista = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,21 +32,22 @@ class EdicaoListaActivity : AppCompatActivity() {
         unidades = intent.getSerializableExtra("UNIDADES") as ArrayList<String>
 
         if(lista != null) {
+
             btnNovoItem.setOnClickListener { onNovoItem(it) }
-                adapter = PAdapter(this, lista)
-                lvEdicaoLista.adapter = adapter
-                registerForContextMenu(lvEdicaoLista)
 
-                val context = this
-                lvEdicaoLista.setOnItemClickListener { _, _, position, _ ->
-                    // 1
-                    val selectedProduto = lista.lista[position]
+            adapter = PAdapter(this, lista)
+            lvEdicaoLista.adapter = adapter
+            registerForContextMenu(lvEdicaoLista)
 
-                    val intent = Intent(this,InfoDetalhadaActivity::class.java)
-                    //enviar objeto para a atividade
-                    intent.putExtra("PRODUTO", selectedProduto)
-                    startActivity(intent)
-                }
+            lvEdicaoLista.setOnItemClickListener { _, _, position, _ ->
+                // 1
+                val selectedProduto = lista.lista[position]
+
+                val intent = Intent(this,InfoDetalhadaActivity::class.java)
+                //enviar objeto para a atividade
+                intent.putExtra("PRODUTO", selectedProduto)
+                startActivity(intent)
+            }
         }
 
     }
@@ -66,6 +66,15 @@ class EdicaoListaActivity : AppCompatActivity() {
                         unidades = un
                     }
                     lista.lista.add(produto)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+            if(requestCode == EDIT_PRODUTO) {
+                if (resultCode == Activity.RESULT_OK) {
+                    // 3
+                    var produto:Produto = data?.getSerializableExtra("PRODUTO") as Produto
+                    lista.lista.removeAt(posNaLista)
+                    lista.lista.add(posNaLista, produto)
                     adapter.notifyDataSetChanged()
                 }
             }
@@ -92,6 +101,7 @@ class EdicaoListaActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.carrinho -> {
                 val intent = Intent(this,CarrinhoActivity::class.java)
+                intent.putExtra("LISTA", lista)
                 startActivity(intent)
             }
             else -> return super.onOptionsItemSelected(item)
@@ -128,9 +138,10 @@ class EdicaoListaActivity : AppCompatActivity() {
             }
             R.id.editar -> {
                 var prod = lista.lista.get(info.position)
+                posNaLista = info.position
                 val intent = Intent(this,EditaProdutoActivity::class.java)
                 intent.putExtra("PROD", prod)
-                startActivity(intent)
+                startActivityForResult(intent, EDIT_PRODUTO)
 
                 //adapter.notifyDataSetChanged()
                 return false
@@ -162,8 +173,8 @@ class PAdapter(private val context: Context, private val dataSource: Lista) : Ba
         val rowView = inflater.inflate(R.layout.edicao_lista_item, p2, false)
         val produto = dataSource.lista[p0]
 
-        val nome = rowView.edicaoTituloItem
-        val unidades = rowView.edicaoUnidades
+        val nome = rowView.tvEdicaoTituloItem
+        val unidades = rowView.tvEdicaoUnidades
 
         if(produto.imagem != null){
             var foto = BitmapFactory.decodeByteArray(produto.imagem, 0, produto.imagem!!.size);
