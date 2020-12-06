@@ -28,7 +28,6 @@ class MainActivity : Activity() {
         var text = ""
         //Make sure to use a try-catch statement to catch any errors
         try {
-            //Make your FilePath and File
             val filePath: String = this.filesDir.toString() + "/" + "Save"
             val myFile = File(filePath)
             //Make an InputStream with your File in the constructor
