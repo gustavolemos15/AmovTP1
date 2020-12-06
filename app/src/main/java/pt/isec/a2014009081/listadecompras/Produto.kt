@@ -13,5 +13,5 @@ class Produto(Nome : String, Quantidade: Int, Marca: String = " ", Categoria: St
     var carrinho : Boolean = false
 
     var histPrecos : ArrayList<Float> = ArrayList()
-    lateinit var imagem : Bitmap
+    var imagem : ByteArray? = null
 }

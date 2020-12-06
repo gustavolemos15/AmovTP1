@@ -1,6 +1,7 @@
 package pt.isec.a2014009081.listadecompras
 
 import android.Manifest
+import android.R.attr.bitmap
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -19,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_novo_item.*
+import java.io.ByteArrayOutputStream
 
 
 private const val CODIGO_CAMERA = 40
@@ -214,10 +216,12 @@ class NovoItemActivity : AppCompatActivity() {
                 return
             }
         }
-                //TODO: get string Categoria e Quantidade e Marca, get foto
 
         val produto = Produto(nome, quantidade, marca, strSpinnerCat, strSpinnerUni, notas)
-        //produto.imagem = foto
+        val bStream = ByteArrayOutputStream()
+        foto.compress(Bitmap.CompressFormat.PNG, 100, bStream)
+        val byteArray: ByteArray = bStream.toByteArray()
+        produto.imagem = byteArray
 
 
         val intent = Intent()

@@ -3,6 +3,7 @@ package pt.isec.a2014009081.listadecompras
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
@@ -159,14 +160,19 @@ class PAdapter(private val context: Context, private val dataSource: Lista) : Ba
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
 
         val rowView = inflater.inflate(R.layout.edicao_lista_item, p2, false)
-        val lista = dataSource.lista[p0]
+        val produto = dataSource.lista[p0]
 
         val nome = rowView.edicaoTituloItem
         val unidades = rowView.edicaoUnidades
 
+        if(produto.imagem != null){
+            var foto = BitmapFactory.decodeByteArray(produto.imagem, 0, produto.imagem!!.size);
+            rowView.ivFoto.setImageBitmap(foto)
+        }
+
         if(nome != null && unidades != null) {
-            nome.text = lista.nome
-            unidades.text = "${lista.quantidade} ${lista.unidade}"
+            nome.text = produto.nome
+            unidades.text = "${produto.quantidade} ${produto.unidade}"
         }
 
         return rowView
