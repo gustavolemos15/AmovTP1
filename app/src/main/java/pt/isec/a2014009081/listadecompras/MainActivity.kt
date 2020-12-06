@@ -9,6 +9,8 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.edit_text_dialog.view.*
 import java.io.*
+import java.lang.Exception
+import java.lang.IllegalStateException
 
 // Activity em vez de AppCompatActivity para tirar a titlebar
 class MainActivity : Activity() {
@@ -53,8 +55,15 @@ class MainActivity : Activity() {
             //Log your error with Log.e
         } catch (e: IOException) {
             //Log your error with Log.e
+        }catch (e: Exception){
+
         }
-        principal = gson.fromJson(text, Principal::class.java)
+        try {
+            principal = gson.fromJson(text, Principal::class.java)
+        }catch (e: IllegalStateException){
+            saveData()
+        }
+
 
         //id do botao
         btnListasAnteriores.setOnClickListener{ onListasAnteriores(it, principal) }
@@ -94,10 +103,10 @@ class MainActivity : Activity() {
         //Create FileOutputStream, yourFile is part of the constructor
         val fileOutputStream = FileOutputStream(myfile)
         //Convert your JSON String to Bytes and write() it
-        fileOutputStream.write(principalJson.toByteArray());
+        fileOutputStream.write(principalJson.toByteArray())
         //Finally flush and close your FileOutputStream
-        fileOutputStream.flush();
-        fileOutputStream.close();
+        fileOutputStream.flush()
+        fileOutputStream.close()
         println("dados guardados")
     }
 
