@@ -14,9 +14,9 @@ class Principal : Serializable{
         listas.add(Lista("Lista 2"))
         listas.add(Lista("Lista 3"))
         listas.add(Lista("Lista 4"))
-        var p1 = Produto("Batatas", 3, "Pingo Doce", "Legumes", "Unidades")
+        var p1 = Produto("Batatas", 3, "Pingo Doce", "Legumes", "Unidades", "Notas hard coded")
         listas[0].lista.add(p1)
-        var p2 = Produto("Leite", 6, "Pingo Doce", "Legumes", "Litros")
+        var p2 = Produto("Leite", 6, "Pingo Doce", "Alimentação", "Litros", "Notas hard coded")
         listas[0].lista.add(p2)
         produtos.add(p2)
         // inicializar unidades e categorias

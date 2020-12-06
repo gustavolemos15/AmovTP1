@@ -3,9 +3,6 @@ package pt.isec.a2014009081.listadecompras
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
@@ -16,8 +13,8 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_novo_item.*
-import java.lang.NumberFormatException
 
 private const val CODIGO_CAMERA = 40
 private const val CODIGO_GALERIA = 41
@@ -143,31 +140,16 @@ class NovoItemActivity : AppCompatActivity() {
             val fotoCapturada = data?.extras?.get("data") as Bitmap
             imagemItem.setImageBitmap(fotoCapturada)
 
-            // Save image to gallery
-            var savedImageURL = MediaStore.Images.Media.insertImage(
-                contentResolver,
-                fotoCapturada,
-                "Lista de Compras",
-                "Image of $title"
-            )
-
-
         }
 
         if (requestCode == CODIGO_GALERIA && resultCode == Activity.RESULT_OK) {
             val uri = data!!.data
             imagemItem.setImageURI(uri)
+            val bitmap =
+                MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
-
-    fun onGuardarNovoItem(view: View) {
-        Toast.makeText(
-            this@NovoItemActivity,
-            "Item Guardado",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
     fun onCancelarNovoItem(view: View) {
@@ -182,9 +164,13 @@ class NovoItemActivity : AppCompatActivity() {
         val nome = etDesignacao.text.toString()
         val strQuantidade = etQuantidade.text.toString()
         var quantidade = 0
+        var marca = etMarca.text.toString()
         val strSpinnerUni = spinnerUnidades.selectedItem.toString()
         val strSpinnerCat = spinnerCategoria.selectedItem.toString()
-
+        var notas = etNotas.text.toString()
+        var imagem = imagemItem
+        //continuar aqui
+        //e adicionar permissao camara
 
 
         if(nome == null || nome.length < 2) {
@@ -204,7 +190,8 @@ class NovoItemActivity : AppCompatActivity() {
         }
                 //TODO: get string Categoria e Quantidade e Marca, get foto
 
-        val produto = Produto(nome, quantidade, "marca", "categoria", "unidade")
+        val produto = Produto(nome, quantidade, marca, strSpinnerCat, strSpinnerUni, notas)
+
 
         val intent = Intent()
         //enviar objeto para a atividade

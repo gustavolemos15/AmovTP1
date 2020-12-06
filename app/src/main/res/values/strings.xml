@@ -28,4 +28,6 @@
     <string name="nomeInvalido">Nome inválido</string>
     <string name="quantidadeInvalida">Quantidade invalida</string>
     <string name="campoInvalido">Campo inválido</string>
+    <string name="delete">Eliminar</string>
+    <string name="editar">Editar</string>
 </resources>

@@ -110,6 +110,15 @@ class EdicaoListaActivity : AppCompatActivity() {
                 adapter.notifyDataSetChanged()
                 return true
             }
+            R.id.editar -> {
+                var prod = lista.lista.get(info.position)
+                val intent = Intent(this,EditaProdutoActivity::class.java)
+                intent.putExtra("PROD", prod)
+                startActivity(intent)
+
+                //adapter.notifyDataSetChanged()
+                return false
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -142,7 +151,7 @@ class PAdapter(private val context: Context, private val dataSource: Lista) : Ba
 
         if(nome != null && unidades != null) {
             nome.text = lista.nome
-            unidades.text = "${lista.quantidade} Elementos"
+            unidades.text = "${lista.quantidade} ${lista.unidade}"
         }
 
         return rowView
