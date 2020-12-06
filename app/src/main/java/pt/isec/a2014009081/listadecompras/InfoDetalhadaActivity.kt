@@ -2,7 +2,10 @@ package pt.isec.a2014009081.listadecompras
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import kotlinx.android.synthetic.main.activity_edita_produto.*
 import kotlinx.android.synthetic.main.activity_info_detalhada.*
+import kotlinx.android.synthetic.main.activity_info_detalhada.tvCategoria
+import kotlinx.android.synthetic.main.activity_info_detalhada.tvNotas
 
 class InfoDetalhadaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +22,7 @@ class InfoDetalhadaActivity : AppCompatActivity() {
             tvDesignacao.text = produto.nome
             tvCategoria.text = produto.categoria
             tvMarca.text = produto.marca
+            tvNotas.text = produto.notas
 
             // Tratameto para a quantidade
             val a = produto.quantidade; val b = " "; val c = produto.unidade; val sb = StringBuilder()
