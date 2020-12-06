@@ -22,7 +22,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_novo_item.*
 import java.io.ByteArrayOutputStream
 
-private const val PERMISSAO_CAMERA = 30
+
 private const val CODIGO_CAMERA = 40
 private const val CODIGO_GALERIA = 41
 
@@ -30,7 +30,7 @@ class NovoItemActivity : AppCompatActivity() {
 
     lateinit var categorias : ArrayList<String>
     lateinit var unidades : ArrayList<String>
-    lateinit var foto :Bitmap
+    var foto :Bitmap? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -173,6 +173,9 @@ class NovoItemActivity : AppCompatActivity() {
         if (requestCode == CODIGO_GALERIA && resultCode == Activity.RESULT_OK) {
             val uri = data!!.data
             imagemItem.setImageURI(uri)
+            val bitmap =
+                MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+            foto = bitmap
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -213,7 +216,7 @@ class NovoItemActivity : AppCompatActivity() {
 
         val produto = Produto(nome, quantidade, marca, strSpinnerCat, strSpinnerUni, notas)
         val bStream = ByteArrayOutputStream()
-        foto.compress(Bitmap.CompressFormat.PNG, 100, bStream)
+        foto?.compress(Bitmap.CompressFormat.PNG, 100, bStream)
         val byteArray: ByteArray = bStream.toByteArray()
         produto.imagem = byteArray
 
