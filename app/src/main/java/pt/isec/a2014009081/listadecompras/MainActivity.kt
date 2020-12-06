@@ -4,10 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.edit_text_dialog.view.*
+import java.io.*
 
 // Activity em vez de AppCompatActivity para tirar a titlebar
 class MainActivity : Activity() {
@@ -23,6 +24,39 @@ class MainActivity : Activity() {
         //"class main" -> nome principal
         principal = Principal()
 
+        val gson = Gson()
+        var text = ""
+        //Make sure to use a try-catch statement to catch any errors
+        try {
+            //Make your FilePath and File
+            val filePath: String = this.filesDir.toString() + "/" + "Save"
+            val myFile = File(filePath)
+            //Make an InputStream with your File in the constructor
+            val inputStream: InputStream = FileInputStream(myFile)
+            val stringBuilder = StringBuilder()
+            //Check to see if your inputStream is null
+            //If it isn't use the inputStream to make a InputStreamReader
+            //Use that to make a BufferedReader
+            //Also create an empty String
+            if (inputStream != null) {
+                val inputStreamReader = InputStreamReader(inputStream)
+                val bufferedReader = BufferedReader(inputStreamReader)
+                var receiveString: String? = ""
+                //Use a while loop to append the lines from the Buffered reader
+                while (bufferedReader.readLine().also({ receiveString = it }) != null) {
+                    stringBuilder.append(receiveString)
+                }
+                //Close your InputStream and save stringBuilder as a String
+                inputStream.close()
+                text = stringBuilder.toString()
+            }
+        } catch (e: FileNotFoundException) {
+            //Log your error with Log.e
+        } catch (e: IOException) {
+            //Log your error with Log.e
+        }
+        principal = gson.fromJson(text, Principal::class.java)
+
         //id do botao
         btnListasAnteriores.setOnClickListener{ onListasAnteriores(it, principal) }
 
@@ -36,6 +70,7 @@ class MainActivity : Activity() {
                 var lista = data?.getSerializableExtra("LISTA") as Lista?
                 if(lista != null) {
                     principal.listas.add(0, lista)
+                    saveData()
                 }
             }
         }
@@ -45,9 +80,26 @@ class MainActivity : Activity() {
                 var p = data?.getSerializableExtra("PRINCIPAL") as Principal?
                 if(p != null) {
                     principal = p
+                    saveData()
                 }
             }
         }
+    }
+
+    fun saveData(){
+        val gson = Gson()
+        val principalJson: String = gson.toJson(principal)
+        //Get  FilePath and use it to create File
+        val filePath = this.filesDir.toString() + "/" + "Save"
+        val myfile = File(filePath)
+        //Create FileOutputStream, yourFile is part of the constructor
+        val fileOutputStream = FileOutputStream(myfile)
+        //Convert your JSON String to Bytes and write() it
+        fileOutputStream.write(principalJson.toByteArray());
+        //Finally flush and close your FileOutputStream
+        fileOutputStream.flush();
+        fileOutputStream.close();
+        println("dados guardados")
     }
 
     fun onNovaLista(view: View) {
@@ -55,7 +107,7 @@ class MainActivity : Activity() {
         val inflater = layoutInflater
         val dlgLayout = inflater.inflate(R.layout.edit_text_dialog, null)
         val editText = dlgLayout.etDialog
-        val intent = Intent(this,EdicaoListaActivity::class.java)
+        val intent = Intent(this, EdicaoListaActivity::class.java)
 
         with(dlgBuilder) {
             setTitle(R.string.primeiroBotao)
@@ -73,15 +125,15 @@ class MainActivity : Activity() {
 
     }
 
-    fun onListasAnteriores(view: View, principal : Principal) {
-        val intent = Intent(this,ListasAnterioresActivity::class.java)
+    fun onListasAnteriores(view: View, principal: Principal) {
+        val intent = Intent(this, ListasAnterioresActivity::class.java)
         //enviar objeto para a atividade
         intent.putExtra("PRINCIPAL", principal)
         startActivityForResult(intent, LISTAS_ANTERIORES)
     }
 
     fun onGestaoDados(view: View) {
-        val intent = Intent(this,GestaoDadosActivity::class.java)
+        val intent = Intent(this, GestaoDadosActivity::class.java)
         startActivity(intent)
     }
 
